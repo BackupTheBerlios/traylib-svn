@@ -35,7 +35,7 @@ extends Thread
 	static {
 		String tpath = System.getProperty("lib.trayicon.path");
 		
-		if (tpath == null)
+		if (tpath != null)
 		{
 			System.load(tpath);	
 		}
