@@ -67,6 +67,15 @@ extends Thread
 		return trayicon;
 	}
 	
+	public long addicon (String name, byte[] data, JTrayiconListener l)
+	{	
+		long trayicon=tray_icon_new_from_data(name,data);
+		icons.put(new Long(trayicon), l);
+		return trayicon;
+	}
+	
+	
+	
 	public void remove (long icon)
 	{	
 		this.tray_icon_remove(icon);
@@ -104,17 +113,24 @@ extends Thread
 		return this.icons.size();
 	}
 	
-	public void set_image(long icon, String image)
+	public void setImage(long icon, String image)
 	{
-		this.tray_icon_set_image(icon, image);
+		this.tray_icon_set_image(icon, image);		
+	}
+
+	public void setImage(long icon, byte[] data)
+	{
+		this.tray_icon_set_image_from_data(icon, data);
 		
 	}
 
   private native long tray_icon_new(String name, String image);
+  private native long tray_icon_new_from_data(String name, byte[] data);
   private native void tray_icon_remove(long icon);
   private native int tray_icon_send_message(long icon, long timeout, String message, long len);
   private native void tray_icon_cancel_message(long icon,int id);
   private native void tray_icon_set_image(long icon,String image);
+  private native void tray_icon_set_image_from_data(long icon,byte[] data);
   private native void tray_icon_init();
   private native void tray_icon_run();
   private native void tray_icon_stop();

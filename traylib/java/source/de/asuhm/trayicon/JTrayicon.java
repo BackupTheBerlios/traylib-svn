@@ -34,6 +34,7 @@ extends Thread
 	private long icon;
 	private String name;
 	private String image;
+	private byte[] data;
 	private JTrayiconListener listener;
 
 
@@ -45,12 +46,24 @@ extends Thread
 		this.tray = JTrayiconWrap.getInstance();
 	}
 	
+	public JTrayicon (String name, byte[] data, JTrayiconListener l)
+	{
+		this.name=name;
+		this.data=data;
+		this.listener=l;
+		this.tray = JTrayiconWrap.getInstance();
+	}
+	
 	public void show()
 	{	
-	 	this.icon = this.tray.addicon(this.name,this.image,this.listener);
+		if (this.image != null) 
+	 		this.icon = this.tray.addicon(this.name,this.image,this.listener);
+		else
+			this.icon = this.tray.addicon(this.name,this.data,this.listener);
+		
 		if (!tray.isRunning())
 		{
-			tray.run();
+			tray.start();
 		}
 	}
 	
@@ -63,9 +76,18 @@ extends Thread
 	}
 	
 
-	public void set_image(String image)
+	public void setImage(String image)
 	{
-		tray.set_image(icon, image);
+		this.image=image;
+		this.data=null;
+		tray.setImage(this.icon, image);
 		
-	}  
+	}
+
+	public void setImage(byte[] data)
+	{
+		this.image=null;
+		this.data=data;
+		tray.setImage(this.icon, data);
+	}
 }

@@ -90,8 +90,8 @@ JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new (JN
 					return 0;
 			}
 		}
-		result = (void *) tray_icon_new ((char const *) arg1,
-						 (char const *) arg2);
+		result = (void *) tray_icon_new ((const char *) arg1,
+						 (const char *) arg2);
 
 		*(void **) &jresult = result;
 		{
@@ -107,6 +107,56 @@ JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new (JN
 		
 		return jresult;
 	}
+
+JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new_1from_1data (JNIEnv * jenv,
+								jobject obj,
+								jstring jarg1,
+								jbyteArray jarg2)
+	{
+		jlong jresult = 0;
+		jclass cls;
+		char *arg1, *arg2;
+		void *result;
+		jsize arraylength;		
+		
+		{
+			arg1 = 0;
+			if (jarg1)
+			{
+				arg1 = (char *) (*jenv)->
+					GetStringUTFChars (jenv, jarg1, 0);
+				if (!arg1)
+					return 0;
+			}
+			arg2 = 0;
+			if (jarg2)
+			{
+				arraylength =  (*jenv)->GetArrayLength (jenv,jarg2);
+				
+				arg2 = (char *) (*jenv)->
+					GetByteArrayElements (jenv, jarg2, 0);
+				if (!arg2)
+					return 0;
+			}
+		}
+		result = (void *) tray_icon_new_from_data ((const char*) arg1,
+						 (const char  *) arg2, (unsigned long) arraylength);
+
+		*(void **) &jresult = result;
+		{
+			if (arg1)
+				(*jenv)->ReleaseStringUTFChars (jenv, jarg1,
+								arg1);
+		}
+		{
+			if (arg2)
+				(*jenv)->ReleaseByteArrayElements (jenv, jarg2,
+								arg2,0);
+		}
+		
+		return jresult;
+	}
+
 
 	
 		JNIEXPORT void JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1remove
@@ -150,7 +200,7 @@ JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new (JN
 		}
 		arg4 = (unsigned long) jarg4;
 		result = (int) tray_icon_send_message (arg1, arg2,
-						       (char const *) arg3,
+						       (const char *) arg3,
 						       arg4);
 
 		jresult = (jint) result;
@@ -196,12 +246,44 @@ JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new (JN
 					return;
 			}
 		}
-		tray_icon_set_image (arg1, (char const *) arg2);
+		tray_icon_set_image (arg1, (const char *) arg2);
 
 		{
 			if (arg2)
 				(*jenv)->ReleaseStringUTFChars (jenv, jarg2,
 								arg2);
+		}
+		return;
+	}
+	
+	
+	JNIEXPORT void JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1set_1image_1from_1data
+		(JNIEnv * jenv, jobject  obj, jlong jarg1, jbyteArray jarg2)
+	{
+		void *arg1 = (void *) 0;
+		char *arg2;
+		jsize arraylength;
+		arg1 = *(void **) &jarg1;
+		{
+			
+			arg2 = 0;
+			if (jarg2)
+			{
+				arraylength = (*jenv)->GetArrayLength (jenv,jarg2);
+				
+				arg2 = (char *) (*jenv)->
+					GetByteArrayElements (jenv, jarg2, 0);
+				if (!arg2)
+					return;
+			}
+		}	
+			
+		tray_icon_set_image_from_data (arg1, (const char *) arg2, (unsigned long) arraylength);
+
+		{
+			if (arg2)
+				(*jenv)->ReleaseByteArrayElements (jenv, jarg2,
+								arg2,0);
 		}
 		return;
 	}

@@ -44,7 +44,21 @@ extern "C"
 								jstring jarg1,
 								jstring
 								jarg2);
+/*
+ * Class:     jtrayicon
+ * Method:    tray_icon_new_from_data
+ * Signature: (Ljava/lang/String;)I
+ */
 
+
+
+	JNIEXPORT jlong JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1new_1from_1data (JNIEnv * jenv,
+								jobject obj,
+								jstring jarg1,
+								jbyteArray
+								jarg2);
+
+	
 /*
  * Class:     jtrayicon
  * Method:    tray_icon_remove
@@ -92,6 +106,15 @@ extern "C"
 	JNIEXPORT void JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1set_1image
 		(JNIEnv * jenv, jobject  obj, jlong jarg1, jstring jarg2);
 
+
+/*
+ * Class:     jtrayicon
+ * Method:    tray_icon_set_image
+ * Signature: (JLjava/lang/String;J)V
+ */
+
+	JNIEXPORT void JNICALL Java_de_asuhm_trayicon_JTrayiconWrap_tray_1icon_1set_1image_1from_1data
+		(JNIEnv * jenv, jobject  obj, jlong jarg1, jbyteArray jarg2);
 
 /*
  * Class:     jtrayicon
