@@ -27,12 +27,13 @@ PKG_TRAYICON	=	$(CLASSPATH)/$(PACKAGEPATH)/JTrayiconEvent.class \
 							$(CLASSPATH)/$(PACKAGEPATH)/JTrayiconWrap.class\
 							$(CLASSPATH)/$(PACKAGEPATH)/JTrayicon.class 
 	
-							
+path: 
+	mkdir -p $(CLASSPATH)/$(PACKAGEPATH)							
 
 trayicon.jar:	$(PKG_TRAYICON)
 	jar -cvf $@ -C $(CLASSPATH)/ .
 
-all:	trayicon.jar	libtrayicon.so
+all:	path trayicon.jar	libtrayicon.so
 
 
 		
