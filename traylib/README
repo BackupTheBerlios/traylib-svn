@@ -1,0 +1,7 @@
+This is a implementation of the freedesktop System Tray specification (draft)
+
+It is a wrapper around the eggtrayicon.c implementation from Anders Carlsson
+
+The library itself is licensed as LGPL, all wrappers (java, python) are MIT licensed
+
+Have fun with it!
